@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run AutoPkg Recipe",
+      "type": "python",
+      "request": "launch",
+      // for win or linux, assume autopkg is cloned in sibling folder to repo
+      "program": "../autopkg/Code/autopkg",
+      "args": ["run", "-vv", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "osx": {
+        "program": "-c \nprint();import os;os.system(\"autopkg run -vv ${file}\")",
+        "args": []
+      }
+    }
+  ]
+}
