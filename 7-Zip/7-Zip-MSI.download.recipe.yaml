@@ -1,0 +1,22 @@
+Description: Downloads latest 7-Zip MSI-file for Windows.
+Identifier: com.github.autopkg-win.download.7-Zip-MSI
+MinimumVersion: 1.0.5
+
+Input:
+  NAME: 7-Zip
+  SEARCH_URL_MSI: (?P<msi_dl_link>https://sourceforge\.net/projects/sevenzip/files/7-Zip/(?P<version>[0-9]+\.[0-9]+)/7z[0-9]+-x64\.msi/download)
+  DOWNLOAD_FILE: 7-Zip
+
+Process:
+- Processor: URLTextSearcher
+  Arguments:
+    re_pattern: '%SEARCH_URL_MSI%'
+    url: https://sourceforge.net/api/file/index/project-id/14481/rss
+
+- Processor: URLDownloader
+  Arguments:
+    CHECK_FILESIZE_ONLY: 'False'
+    filename: '%NAME%.msi'
+    url: '%msi_dl_link%'
+
+- Processor: EndOfCheckPhase
